@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================
+   Theme tokens — light "Apple-style" glass theme (+ dark mode)
+   Colors are HSL channels so Tailwind can apply opacity.
+   =========================================================== */
+@layer base {
+  :root {
+    --background: 240 20% 96%;      /* #f5f5f7 */
+    --foreground: 240 6% 12%;       /* #1d1d1f */
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 12%;
+
+    --primary: 211 100% 45%;        /* #0071e3 apple blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 20% 94%;
+    --secondary-foreground: 240 6% 12%;
+
+    --muted: 220 16% 92%;
+    --muted-foreground: 220 9% 46%; /* text-mute */
+
+    --accent: 211 100% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --cyan: 189 94% 43%;            /* #06b6d4 */
+    --online: 145 63% 49%;          /* #34c759 */
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 211 100% 45%;
+
+    --radius: 1.25rem;
+
+    /* Convenience aliases used directly in component styles */
+    --text-dim: 220 13% 34%;
+    --hairline: 240 6% 12%;
+    --glass: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 222 30% 7%;       /* deep navy */
+    --foreground: 210 30% 92%;
+
+    --card: 220 26% 12%;
+    --card-foreground: 210 30% 92%;
+
+    --primary: 199 89% 60%;
+    --primary-foreground: 222 47% 8%;
+
+    --secondary: 220 24% 16%;
+    --secondary-foreground: 210 30% 92%;
+
+    --muted: 220 24% 16%;
+    --muted-foreground: 215 15% 62%;
+
+    --accent: 199 89% 60%;
+    --accent-foreground: 222 47% 8%;
+
+    --cyan: 189 94% 55%;
+    --online: 145 63% 55%;
+
+    --border: 218 24% 22%;
+    --input: 218 24% 22%;
+    --ring: 199 89% 60%;
+
+    --text-dim: 215 15% 70%;
+    --hairline: 210 30% 92%;
+    --glass: 220 26% 14%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(1000px circle at 12% -5%, hsl(var(--primary) / 0.08), transparent 45%),
+      radial-gradient(1000px circle at 100% 0%, hsl(var(--cyan) / 0.08), transparent 45%);
+    background-attachment: fixed;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
+    line-height: 1.12;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+/* ===========================================================
+   Reusable component utilities
+   =========================================================== */
+@layer components {
+  .glass {
+    background: hsl(var(--glass) / 0.6);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass) / 0.7);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.05);
+  }
+  .dark .glass {
+    border-color: hsl(var(--border));
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass) / 0.78);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .hairline {
+    border-color: hsl(var(--foreground) / 0.08);
+  }
+
+  .text-dim {
+    color: hsl(var(--text-dim));
+  }
+
+  /* Section header "01 — about" mono label */
+  .shead {
+    @apply flex items-baseline justify-between gap-4 mb-8 pb-3.5;
+    border-bottom: 1px solid hsl(var(--foreground) / 0.08);
+  }
+  .shead__label {
+    @apply font-mono text-sm;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.5px;
+  }
+  .shead__num {
+    @apply font-semibold;
+    color: hsl(var(--primary));
+  }
+
+  /* Gradient text used for the name + stat values */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--cyan)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
